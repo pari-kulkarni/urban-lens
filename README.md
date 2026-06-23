@@ -1,7 +1,7 @@
 # UrbanLens
 
 Pixel-wise semantic segmentation of urban road scenes, trained on the CamVid dataset.
-Built from scratch in PyTorch — covers the full ML pipeline from data loading to evaluation.
+Built from scratch in PyTorch - covers the full ML pipeline from data loading to evaluation.
 
 ## Training curves
 
@@ -30,13 +30,13 @@ Built from scratch in PyTorch — covers the full ML pipeline from data loading 
 | Pavement | 71.0% | Strong |
 | Tree | 66.6% | Strong |
 | Car | 63.3% | Moderate |
-| SignSymbol | 19.3% | Rare — class imbalance |
-| Pedestrian | 17.2% | Rare — class imbalance |
-| Pole | 12.8% | Thin structure — hard geometry |
-| Fence | 9.9% | Rare and thin — class imbalance |
-| Bicyclist | 8.7% | Rarest class — class imbalance |
+| SignSymbol | 19.3% | Rare - class imbalance |
+| Pedestrian | 17.2% | Rare - class imbalance |
+| Pole | 12.8% | Thin structure - hard geometry |
+| Fence | 9.9% | Rare and thin - class imbalance |
+| Bicyclist | 8.7% | Rarest class - class imbalance |
 
-Large classes (Sky, Road) score 90%+ IoU. Rare and thin classes (Bicyclist, Fence, Pole) score under 15% due to class imbalance — addressable via weighted loss or focal loss.
+Large classes (Sky, Road) score 90%+ IoU. Rare and thin classes (Bicyclist, Fence, Pole) score under 15% due to class imbalance - addressable via weighted loss or focal loss.
 
 ## Architecture
 
@@ -49,7 +49,7 @@ U-Net with 4 encoder/decoder levels and a bottleneck (~31M parameters).
 
 ## Dataset
 
-[CamVid](http://mi.eng.cam.ac.uk/research/projects/VideoRec/CamVid/) — Cambridge-driving Labeled Video Database.
+[CamVid](http://mi.eng.cam.ac.uk/research/projects/VideoRec/CamVid/) - Cambridge-driving Labeled Video Database.
 
 - 367 train / 101 val / 233 test images
 - 11 semantic classes: Sky, Building, Pole, Road, Pavement, Tree, SignSymbol, Fence, Car, Pedestrian, Bicyclist
@@ -66,34 +66,27 @@ U-Net with 4 encoder/decoder levels and a bottleneck (~31M parameters).
 | Batch size | 8 |
 | Hardware | Google Colab T4 GPU |
 
-## Project structure
+## Project Structure
 
-\`\`\`
+```text
 urban-lens/
 ├── src/
-│   ├── dataset.py      # CamVidDataset — loading, resizing, normalisation
-│   ├── model.py        # UNet + DoubleConv architecture
+│   ├── dataset.py      # CamVidDataset: loading, resizing, normalization
+│   ├── model.py        # U-Net architecture and DoubleConv blocks
 │   ├── train.py        # Training loop with checkpointing
-│   ├── evaluate.py     # IoUMetric + per-class test evaluation
-│   └── visualize.py    # Prediction grid with colour-coded masks
+│   ├── evaluate.py     # IoU metric and per-class evaluation
+│   └── visualize.py    # Prediction visualization with color-coded masks
 ├── outputs/
 │   ├── training_curves.png
 │   └── predictions.png
+├── data/
+│   └── CamVid/
 └── README.md
-\`\`\`
+```
 
-## Setup
-
-\`\`\`bash
-git clone https://github.com/pari-kulkarni/urban-lens.git
-cd urban-lens
-pip install torch torchvision matplotlib pillow numpy
-\`\`\`
-
-Download CamVid from the [SegNet tutorial repo](https://github.com/alexgkendall/SegNet-Tutorial) and place it under `data/CamVid/`.
+You can download the dataset from the SegNet Tutorial repository:
+https://github.com/alexgkendall/SegNet-Tutorial
 
 ## References
-
 - Ronneberger et al., [U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/abs/1505.04597) (2015)
 - Brostow et al., Semantic Object Classes in Video: A High-Definition Ground Truth Database (2009)
-- Inspired by CSC420H1: Introduction to Image Understanding, University of Toronto
